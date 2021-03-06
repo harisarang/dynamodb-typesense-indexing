@@ -1,9 +1,8 @@
 import boto3
-import pandas as pd
 import csv
 
 def main():
-    dyanmodb = boto3.client('dynamodb', endpoint_url="http://localhost:8000")
+    dyanmodb = boto3.client('dynamodb')
     count = 0;
     with open('IPL Data.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
@@ -30,7 +29,7 @@ def main():
                 response = dyanmodb.put_item(
                 TableName='IPL-Data',
                 Item={
-                        'id' : {'S':str(matchid)},
+                        'id' : {'N':str(matchid)},
                         'season': {'S': season},
                         'city': {'S':city},
                         'date': {'S': str(date)},
