@@ -36,16 +36,16 @@ def lambda_handler(event, context):
         if record['eventName'] == 'REMOVE':
             res = client.collections['IPL-Data'].documents[str(ddb_record['OldImage']['id']['N'])].delete()
         else:
-            upload = record['NewImage']
-            record = {}
+            upload = ddb_record['NewImage']
+            record1 = {}
             for key in atrributes.keys():
-                record[key] = upload['NewImage'][key][atrributes[key]]
-            record['id'] = str(record['id'])
-            record['season'] = int(record['season'])
-            record['dl'] = int(record['dl'])
-            record['winRun'] = int(record['winRun'])
-            record['winWicket'] = int(record['winWicket'])
-            res = client.collections['IPL-Data'].upsert(record)
+                record1[key] = upload['NewImage'][key][atrributes[key]]
+            record1['id'] = str(record1['id'])
+            record1['season'] = int(record1['season'])
+            record1['dl'] = int(record1['dl'])
+            record1['winRun'] = int(record1['winRun'])
+            record1['winWicket'] = int(record1['winWicket'])
+            res = client.collections['IPL-Data'].upsert(record1)
             print(res)
         processed = processed + 1
 
